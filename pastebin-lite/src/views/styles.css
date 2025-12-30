@@ -1,0 +1,17 @@
+body {
+  font-family: Arial;
+  background: #fafafa;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.paste-content {
+  white-space: pre-wrap;
+  background: #f4f4f4;
+  padding: 12px;
+  border-radius: 8px;
+}
