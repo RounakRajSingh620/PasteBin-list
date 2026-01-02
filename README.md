@@ -130,7 +130,7 @@ Invalid input → returns 4xx JSON.
 
 👁️ Fetch Paste (API)
 - GET /api/pastes/:id
-- 
+
 Response:
 
  {
