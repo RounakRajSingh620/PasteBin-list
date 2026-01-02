@@ -1,15 +1,16 @@
 {
   "name": "pastebin-lite",
   "version": "1.0.0",
-  "description": "",
+  "description": "Pastebin-lite backend with Express, Prisma, Neon Postgres",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
+
+  "scripts": {
+    "dev": "node src/server.js",
+    "postinstall": "prisma generate",
+    "test": "echo \"No tests\""
+  },
+
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
