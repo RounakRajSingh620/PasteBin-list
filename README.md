@@ -154,7 +154,7 @@ Unavailable (missing / expired / view-limit reached):
 
 Returns:
 - safe HTML page
-- text content wrapped in '<pre>.'
+- text content wrapped in (<pre>)
 - prevents script execution
 
 Unavailable → returns 404.
