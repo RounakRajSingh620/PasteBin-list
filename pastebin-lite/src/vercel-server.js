@@ -13,5 +13,5 @@ app.use("/api/pastes", require("./routes/pastes"));
 app.use("/api/pastes", require("./routes/pasteFetch"));
 app.use("/p", require("./routes/pasteView"));
 
-// IMPORTANT: no app.listen() here
+
 module.exports = app;
