@@ -4,21 +4,24 @@ const { PrismaClient } = require("@prisma/client");
 const { Pool } = require("pg");
 const { PrismaPg } = require("@prisma/adapter-pg");
 
+// Reuse Prisma across serverless invocations
 let prisma;
 
 if (!global._prisma) {
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
-    max: 1,                    // prevent pool hang
-    idleTimeoutMillis: 5000,   // avoid never-ending wait
+
+    // Prevent connection hang on Vercel serverless
+    max: 1,
+    idleTimeoutMillis: 5000,
     connectionTimeoutMillis: 5000
   });
 
   const adapter = new PrismaPg(pool);
 
   global._prisma = new PrismaClient({
-    adapter,
+    adapter
   });
 }
 
