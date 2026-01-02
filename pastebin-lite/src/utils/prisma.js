@@ -1,37 +1,27 @@
-// require("dotenv").config();
-
-// const { PrismaClient } = require("@prisma/client");
-// const { Pool } = require("pg");
-// const { PrismaPg } = require("@prisma/adapter-pg");
-
-// // create pg connection pool
-// const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: { rejectUnauthorized: false },
-// });
-
-// // wrap it in Prisma adapter
-// const adapter = new PrismaPg(pool);
-
-// // pass adapter to PrismaClient
-// const prisma = new PrismaClient({
-//   adapter,
-// });
-
-// module.exports = prisma;
 require("dotenv").config();
 
 const { PrismaClient } = require("@prisma/client");
 const { Pool } = require("pg");
 const { PrismaPg } = require("@prisma/adapter-pg");
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-});
+let prisma;
 
-const adapter = new PrismaPg(pool);
+if (!global._prisma) {
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
+    max: 1,                    // prevent pool hang
+    idleTimeoutMillis: 5000,   // avoid never-ending wait
+    connectionTimeoutMillis: 5000
+  });
 
-const prisma = new PrismaClient({ adapter });
+  const adapter = new PrismaPg(pool);
+
+  global._prisma = new PrismaClient({
+    adapter,
+  });
+}
+
+prisma = global._prisma;
 
 module.exports = prisma;
