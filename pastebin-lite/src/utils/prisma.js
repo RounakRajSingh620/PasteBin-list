@@ -3,19 +3,19 @@ require("dotenv").config();
 const { PrismaClient } = require("@prisma/client");
 const { Pool } = require("pg");
 const { PrismaPg } = require("@prisma/adapter-pg");
+const { neonConfig } = require("@neondatabase/serverless");
 
-// Reuse Prisma across serverless invocations
+// Required for Vercel edge/serverless runtimes
+neonConfig.fetchConnectionCache = true;
+
 let prisma;
 
 if (!global._prisma) {
+
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
-
-    // Prevent connection hang on Vercel serverless
-    max: 1,
-    idleTimeoutMillis: 5000,
-    connectionTimeoutMillis: 5000
+    max: 1
   });
 
   const adapter = new PrismaPg(pool);
