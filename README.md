@@ -62,11 +62,11 @@ Automated tests require deterministic time control.
 
 When:
 
-TEST_MODE=1
+ TEST_MODE=1
 
 expiry logic uses the header:
 
-x-test-now-ms: <milliseconds since epoch>
+ x-test-now-ms: <milliseconds since epoch>
 
 If the header is not present, real system time is used.
 This allows TTL behaviour to be tested consistently.
@@ -99,14 +99,14 @@ Server runs at:
 
 Returns DB status:
 
-- { "ok": true }
+ { "ok": true }
 
 ✍️ Create Paste
 - POST /api/pastes
 
 Request body:
 
-{
+ {
   "content": "string",
   "ttl_seconds": 60,
   "max_views": 5
@@ -116,28 +116,24 @@ Request body:
 Validation rules:
 
 - content must be a non-empty string
-
 - ttl_seconds must be integer ≥ 1 (optional)
-
 - max_views must be integer ≥ 1 (optional)
 
 Response (2xx):
 
-{
+ {
   "id": "uuid",
   "url": "https://paste-bin-list.vercel.app/p/<id>"
 }
-
 
 Invalid input → returns 4xx JSON.
 
 👁️ Fetch Paste (API)
 - GET /api/pastes/:id
-
-
+- 
 Response:
 
-{
+ {
   "content": "string",
   "remaining_views": 3,
   "expires_at": "2026-01-01T00:00:00.000Z"
@@ -158,7 +154,7 @@ Unavailable (missing / expired / view-limit reached):
 
 Returns:
 - safe HTML page
-- text content wrapped in <pre>
+- text content wrapped in '<pre>.'
 - prevents script execution
 
 Unavailable → returns 404.
